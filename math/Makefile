@@ -1,0 +1,2 @@
+%: %.swift
+	swiftc $< -o $@	
