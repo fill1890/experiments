@@ -25,7 +25,7 @@ let args = Process.arguments
 func parseArgs(rawArg: String) {
     var arg: String? = rawArg
     
-    if arg.characters.count == 1 {
+    if arg!.characters.count == 1 {
         arg = shorts[rawArg]
 
         guard arg != nil else {
@@ -34,7 +34,7 @@ func parseArgs(rawArg: String) {
         }
     }
 
-    switch arg {
+    switch arg! {
         case "help":
             print(helpText)
         case "verbose":
@@ -65,7 +65,7 @@ guard let b = Int(args[3]) else {
     exit(1)
 }
 
-print("op: \(op), a: \(a), b: \(b)")
+//print("op: \(op), a: \(a), b: \(b)")
 
 print(op(a, b))
 
