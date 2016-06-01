@@ -1,6 +1,3 @@
-// TODO: Rewrite switch detection to use String.hasPrefix(_:), when it becomes available.
-// Or rewrite when NSRegularExpression is sufficiently implemented.
-
 import Foundation
 
 struct parseResult {
@@ -33,8 +30,10 @@ func parseArguments(_ args: [String], validOps: [String], validSwitches: [String
             switches[String(arg.characters.dropFirst(2))] = true
         } else if arg.hasPrefix("-") {
             let short = String(arg.characters.dropFirst(1))
-            let long = shorts[short]!
-            switches[long] = true
+            guard let switchName = shorts[short] else {
+                throw ArgumentError.InvalidSwitch
+            }
+            switches[switchName] = true
         }
     }
 
