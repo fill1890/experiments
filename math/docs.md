@@ -1,3 +1,10 @@
+Math module, written in Swift and utilizing Swift Package Manager.
+
+Note: Running 'swift build' in this directory currently builds a library,
+not an executable. To build an executable as described in ../README.md, 
+change to the parent directory and run `make math` or just `make` (To
+build all projects).
+
 ### Package.swift:
 
 Swift Package Manager file
@@ -30,7 +37,13 @@ Entry point and primary file
 
 ### Sources/Operations.swift
 
-Math operations
+Math operations:
+```swift
+operations {
+    add(Int, Int) -> Int
+    sub(Int. Int) -> Int
+}
+```
 
 ### Program Flow
 
