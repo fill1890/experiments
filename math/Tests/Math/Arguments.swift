@@ -6,7 +6,7 @@ import XCTest
 class ArgumentsTests: XCTestCase {
 
     let standardTestContents: [String] = [
-        "",
+        "./Math",
         "--help",
         "add",
         "1",
@@ -50,7 +50,7 @@ class ArgumentsTests: XCTestCase {
     }
     func testInvalidArg() {
         do {
-            try parseArguments(["", "add", "one", "two"], validOps: operationStubs)
+            try _ = parseArguments(["./Math", "add", "one", "two"], validOps: operationStubs)
         print("ERROR: Invalid argument error not thrown")
         } catch let error as ArgumentError {
             XCTAssertEqual(
@@ -65,7 +65,7 @@ class ArgumentsTests: XCTestCase {
     }
     func testInvalidOp() {
         do {
-            try parseArguments(["", "ohno", "1", "2"], validOps: operationStubs)
+            try _ = parseArguments(["./Math", "ohno", "1", "2"], validOps: operationStubs)
             print("ERROR: Invalid operation error not thrown")
         } catch let error as ArgumentError {
             XCTAssertEqual(
@@ -80,7 +80,7 @@ class ArgumentsTests: XCTestCase {
     }
     func testInvalidSwitch() {
         do {
-            try parseArguments(["", "add", "1", "2", "--ohno"], validOps: operationStubs, validSwitches: ["verbose", "help"])
+            try _ = parseArguments(["./Math", "add", "1", "2", "--ohno"], validOps: operationStubs, validSwitches: ["verbose", "help"])
             print("ERROR: Invalid switch error not thrown")
         } catch let error as ArgumentError {
             XCTAssertEqual(

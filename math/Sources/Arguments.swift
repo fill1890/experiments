@@ -14,9 +14,14 @@ struct parseResult {
     }
 }
 
+// Returns a parseResult object containing the parsed arguments
 func parseArguments(_ args: [String], validOps: [String], validSwitches: [String]? = nil) throws -> parseResult {
     let shorts = ["v": "verbose", "h": "help"]
     
+    guard args.count >= 4 else {
+        throw ArgumentError.InvalidUsage
+    }
+
     var switches: [String: Bool] = [:]
 
     for var arg in args {
@@ -43,10 +48,10 @@ func parseArguments(_ args: [String], validOps: [String], validSwitches: [String
         let notShort = !arg.hasPrefix("-")
         return notLong && notShort && arg.characters.count != 0
     }
-   
-    let arg1 = Int(mainArgs[1])
-    let arg2 = Int(mainArgs[2])
-    let op = mainArgs[0]
+
+    let arg1 = Int(mainArgs[2])
+    let arg2 = Int(mainArgs[3])
+    let op = mainArgs[1]
 
     guard arg1 != nil && arg2 != nil else {
         throw ArgumentError.InvalidValue  
@@ -56,5 +61,5 @@ func parseArguments(_ args: [String], validOps: [String], validSwitches: [String
         throw ArgumentError.InvalidOperation
     }
 
-    return parseResult(operation: mainArgs[0], arg1: arg1!, arg2: arg2!, switches: switches)
+    return parseResult(operation: op, arg1: arg1!, arg2: arg2!, switches: switches)
 }
