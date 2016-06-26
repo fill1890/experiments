@@ -1,5 +1,5 @@
 %: %.asm
-	nasm $< -f bin -o $@.bin
+	nasm $< -f bin -o $@
 
 .PHONY: clean
 
