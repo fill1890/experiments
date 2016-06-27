@@ -12,26 +12,22 @@ disk_load:
 
     int 0x13        ; BIOS interrupt
 
-    jc disk_error_carry   ; Carry flag
+    jnc .no_errors  ; Carry flag
 
-    pop dx
     cmp dh, al
-    jne disk_error_count
+    je disk_error
+
+    .no_errors:
 
     popa
     ret
 
-disk_error_carry:
-    mov bx, DISK_ERROR_MSG_CARRY
+    popa
+    ret
+
+disk_error:
+    mov bx, DISK_ERROR_MSG
     call print_function
-    mov ax, 0xbcde
     jmp $
 
-disk_error_count:
-    mov bx, DISK_ERROR_MSG_COUNT
-    call print_function
-    mov ax, 0xcdef
-    jmp $
-
-DISK_ERROR_MSG_CARRY db "Disk read error (Carry flag set)", 0
-DISK_ERROR_MSG_COUNT db "Disk read error (Count incorrect)", 0
+DISK_ERROR_MSG db "Disk read error!", 0
