@@ -14,13 +14,11 @@ disk_load:
 
     jnc .no_errors  ; Carry flag
 
+    pop dx
     cmp dh, al
     je disk_error
 
     .no_errors:
-
-    popa
-    ret
 
     popa
     ret

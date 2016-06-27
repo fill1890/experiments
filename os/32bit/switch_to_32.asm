@@ -2,7 +2,6 @@
 ; Switch to protected mode
 
 switch_to_pm:
-
     cli                     ; Disable interrupts
     lgdt [gdt_descriptor]   ; Load GDT from file
     
