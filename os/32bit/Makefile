@@ -1,22 +1,27 @@
+.PHONY: all run clean
+
+all: os-image
+
+run: all
+	qemu
+
 os-image: boot_sect.bin kernel.bin
 	@echo "Building os-image..."
-	@cat boot_sect.bin kernel.bin > os-image
+	@cat $^ > os-image
 	@echo "Tidying build..."
 	@rm kernel.o kernel.bin boot_sect.bin kernel_entry.o
 
-kernel.bin: kernel.o kernel_entry.o
-	ld -melf_i386 -Ttext 0x1000 -o kernel.bin --oformat binary kernel_entry.o kernel.o
+kernel.bin: kernel_entry.o kernel.o
+	i386-elf-ld -melf_i386 -Ttext 0x1000 -o kernel.bin --oformat binary $^
 
 %.o: %.c
-	gcc -m32 -ffreestanding -c $< -o $@
+	i386-elf-gcc -m32 -ffreestanding -c $< -o $@
 
 %.o: %.asm
 	nasm $< -f elf -o $@
 
 %.bin: %.asm
 	nasm $< -f bin -o $@
-
-.PHONY: clean
 
 clean:
 	@rm *.bin || true
