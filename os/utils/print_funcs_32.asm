@@ -4,6 +4,8 @@
 VIDEO_MEMORY   equ 0xb8000
 WHITE_ON_BLACK equ 0x0f
 
+[bits 32]
+
 ; Prints null-terminated string from ebx
 print_string_32:
     pusha

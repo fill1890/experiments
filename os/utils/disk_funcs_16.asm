@@ -1,3 +1,5 @@
+[bits 16]
+
 ; Load dh sectors to ES:BX from dl
 ; Requires print_string for error reporting
 disk_load:
@@ -25,7 +27,7 @@ disk_load:
 
 disk_error:
     mov bx, DISK_ERROR_MSG
-    call print_function
+    call print_string_16
     jmp $
 
 DISK_ERROR_MSG db "Disk read error!", 0

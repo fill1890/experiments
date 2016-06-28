@@ -7,7 +7,7 @@ mov bp, 0x9000
 mov sp, bp
 
 mov bx, MSG_REAL_MODE
-call print_function
+call print_string_16
 
 call load_kernel
 
@@ -15,11 +15,13 @@ call switch_to_pm
 
 jmp $
 
-%include "utils/print_funcs_16.asm"
-%include "utils/disk_funcs_16.asm"
+; Weird paths because make.
+; Compile from top-level directory.
 %include "boot/gdt_setup.asm"
-%include "utils/print_funcs_32.asm"
 %include "boot/switch_to_32.asm"
+%include "utils/disk_funcs_16.asm"
+%include "utils/print_funcs_16.asm"
+%include "utils/print_funcs_32.asm"
 
 [bits 16]
 
@@ -30,7 +32,7 @@ load_kernel:
     call disk_load
 
     mov bx, MSG_LOAD_KERNEL
-    call print_function
+    call print_string_16
 
     ret
 

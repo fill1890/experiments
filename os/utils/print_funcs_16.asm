@@ -1,3 +1,5 @@
+[bits 16]
+
 ; Prints 4-digit hex code from dx
 print_hex:
     pusha           ; Save registers
@@ -30,37 +32,41 @@ print_hex:
     jle .loop
 
     mov bx, HEX_OUT
-    call print_function
+    call print_string_16
 
     popa
     ret
 
 ; Prints null-terminated string from bx
-print_function:
+print_string_16:
     pusha
     
     mov ah, 0x0e
    
-     .loop:
-        cmp byte [bx], 0 
-        je .done
-        
-        mov al, [bx]
-        int 0x10
-        inc bx
+    .loop:
+    
+    cmp byte [bx], 0 
+    je .done
+    
+    mov al, [bx]
+    int 0x10
+    inc bx
 
-        cmp byte [bx], 0x0a
-        je .carriage
-        jne .loop
+    cmp byte [bx], 0x0a
+    je .carriage
+
+    jne .loop
 
     .carriage:
-        mov al, 0x0d
-        int 0x10
+    
+    mov al, 0x0d
+    int 0x10
 
-        jmp .loop
+    jmp .loop
 
     .done:
-        popa
-        ret
+    
+    popa
+    ret
 
 HEX_OUT: db '0x0000', 0x0a, 0
