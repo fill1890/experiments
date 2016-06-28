@@ -15,11 +15,11 @@ call switch_to_pm
 
 jmp $
 
-%include "../16bit/print_funcs.asm"
-%include "../16bit/disk_funcs.asm"
-%include "gdt_setup.asm"
-%include "print_funcs.asm"
-%include "switch_to_32.asm"
+%include "utils/print_funcs.asm"
+%include "utils/disk_funcs.asm"
+%include "boot/gdt_setup.asm"
+%include "utils/print_funcs_32.asm"
+%include "boot/switch_to_32.asm"
 
 [bits 16]
 
