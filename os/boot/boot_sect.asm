@@ -15,8 +15,8 @@ call switch_to_pm
 
 jmp $
 
-%include "utils/print_funcs.asm"
-%include "utils/disk_funcs.asm"
+%include "utils/print_funcs_16.asm"
+%include "utils/disk_funcs_16.asm"
 %include "boot/gdt_setup.asm"
 %include "utils/print_funcs_32.asm"
 %include "boot/switch_to_32.asm"
