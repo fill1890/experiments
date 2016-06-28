@@ -3,3 +3,6 @@ math/math
 *.swp
 
 .build/
+
+saneelf.sh
+.gitattributes
